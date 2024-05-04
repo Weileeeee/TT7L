@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Filter</title>
+    <style>
+        /* 样式用于美化界面，可根据需要自定义 */
+        #filterInput {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        #universityList {
+            list-style-type: none;
+            padding: 0;
+        }
+        .universityItem {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+        .countryHeader {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+    <body>
+        <input type="text" id="filterInput" placeholder="输入要过滤的关键词">
+        <ul id="universityList">
+            <li class="countryHeader">美国</li>
+            <li class="universityItem" data-country="美国" data-rank="1">Harvard University</li>
+            <li class="universityItem" data-country="美国" data-rank="2">Massachusetts Institute of Technology (MIT)</li>
+            <li class="universityItem" data-country="美国" data-rank="3">Stanford University</li>
+            <li class="countryHeader">英国</li>
+            <li class="universityItem" data-country="英国" data-rank="1">University of Cambridge</li>
+            <li class="universityItem" data-country="英国" data-rank="2">University of Oxford</li>
+            <li class="countryHeader">其他国家</li>
+            <li class="universityItem" data-country="其他国家" data-rank="1">California Institute of Technology (Caltech)</li>
+        </ul>
+
+        <script>
+            //Get the input box snd the list to the filter
+            const filterInput = document.getElementById('filterInput');
+            const universityList = document.getElementById('universityList');
+
+            // Add input event listener
+            filterInput.addEventListener('input', function() {
+                //Get the value of the input box and convert it to lowercase 
+                const filterValue = filterInput.value.toLowerCase();
+                // Get all list items
+                const universities = universityList.querySelectorAll('.universityItem');
+                // Iterate over list items
+                universities.forEach(function(university) {
+                    //Get the text context in a list item and convert it to lowercase
+                    const universityName = university.textContent.toLowerCase();
+                    // Get country information and ranking information
+                    const country = university.getAttribute('data-country').toLowerCase();
+                    const rank = university.getAttribute('data-rank').toLowerCase();
+                    // Check if filter value is included, display it if it is included, otherwise hide it
+                    if(universityName.includes(filterValue) || country.includes(filterValue) || rank.includes(filterValue)) {
+                        university.style.display = '';
+                    } else {
+                        university.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
