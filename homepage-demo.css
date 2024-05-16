@@ -1,0 +1,41 @@
+
+
+
+*{
+    margin: opx ;
+    font-family:'Poppins',sans-serif;
+}
+
+header {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding: 20px 100px;
+    background: blue;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.logo {
+    font-size:  2em;
+    color:azure;
+    user-select: none;
+}
+
+.navigation a {
+    position: relative;
+    font-size:  2em;
+    color:azure;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.navigation .btnLogin-popup {
+    width: 130px;
+
+
+}
