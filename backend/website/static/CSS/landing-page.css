@@ -54,7 +54,7 @@ ul.nav li:hover ul.dropdown{
 .user{
     position:relative;
     text-align: right;
-    right: -500px;
+    right: -600px;
 }
 .credits{
     background-color: gray;
