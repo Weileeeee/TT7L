@@ -14,7 +14,7 @@
 }
 .card{
     width:1000px;
-    height:1000px
+    height:1000px;
     background:#fff;
     padding:40px;
     text-align:center;
@@ -43,3 +43,23 @@ label{
 input{
     display:none;
 }
+
+    .fa-thumbs-up {
+        color: #007bff;
+        font-size: 100px;
+        cursor: pointer;
+    }
+    .fa-thumbs-up:hover {
+        color: #0056b3;
+    }
+
+    
+    .fa-comment {
+        color: #28a745;
+        font-size: 100px;
+        cursor: pointer;
+    }
+    .fa-comment:hover {
+        color: #218838;
+    }
+
