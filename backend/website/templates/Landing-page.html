@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head> 
@@ -6,7 +5,7 @@
     <body>
       <!-- linking to css -->
       <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/landing-page.css') }}">
-      <link rel ='stylesheet' href ="static/CSS/landing-page.css"
+      <link rel ='stylesheet' href ="static/CSS/landing-page.css">   
    
       <title>{% block title%}{% endblock %}</title>
       <!--nav bar-->
@@ -36,8 +35,8 @@
             </nav>
             <!--message flashing-->
             {% with messages = get_flashed_messages(with_categories=true)%}
-            {% if messages%}
-              {%for category, message in messages%}
+            {% if messages %}
+              {% for category, message in messages %}
               {% if category == 'error' %}
               <!--display error message box-->
               <div class="alert alert danger alter-dismissable fade show" role="alert">

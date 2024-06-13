@@ -1,0 +1,22 @@
+.navbar{
+    background-color:red;
+}
+.navbar-text, .navbar-brand, .nav-link,.nav-link,.button-text{
+    color:white;
+}
+.btn-color{
+    background-color:red;
+}
+#background_pic{
+    background-image:url('Sunway_University.jpg') ;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: left;
+    height:500px;
+    width:100%;
+    opacity:20;
+    
+}
+
+

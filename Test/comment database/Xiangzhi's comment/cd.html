@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments Box</title>
+    <link rel="stylesheet" href="cd.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="comment-section">
+        <h2>Comments</h2>
+        <form id="comment-form">
+            <textarea id="comment-input" placeholder="Write your comment here..." required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="comments-container">
+            <!-- Comments will be appended here -->
+        </div>
+    </div>
+    <script type="module">
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase,ref,set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getAuth,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+       
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyD_nKjutxT0AzWU0BCUtwFtPnz1QXv4pxc",
+          authDomain: "fir-database-9bd7d.firebaseapp.com",
+          databaseURL: "https://fir-database-9bd7d-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "fir-database-9bd7d",
+          storageBucket: "fir-database-9bd7d.appspot.com",
+          messagingSenderId: "611940005",
+          appId: "1:611940005:web:67fa82173c0275ca247f4c"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
+
+        let UserInp  = document.getElementById('comment-input');
+        let MainForm = document.getElementById('MainForm');
+
+        let commentuser =evt=>{
+            evt.preventDefault();
+
+            createUserComment(auth, UserInp.value)
+            .then((credentials)=>{
+                console.log(error.code)
+            })
+            .catch((error)=>{
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+            })
+        }
+      </script>
+    <script src="cd.js"></script>
+</body>
+</html>
