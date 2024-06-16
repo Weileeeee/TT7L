@@ -57,21 +57,46 @@
             </li>
           </ul>
         <div class="d-grid gap-2 d-md-block">
-            <a href ="register.html"><button class="btn btn-light" type="button">Signup</button></a>
-            <a href ="login.html"><buttton class="btn btn-link" type="button">Signin</buttton></a>
+            <a href ="signin.html"><button class="btn btn-light" type="button">Signup</button></a>
+            <a href ="signin.html"><buttton class="btn btn-link" type="button" id="signoutbutton">Signin</buttton></a>
         </div>
                 
           </form>
         </div>
       </div>
     </nav>
-
+    <div class="background-image">
+      <h1>WE ARE HERE FOR YOU</h1>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
 
-    <pic></pic>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const userCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        const msgHead = document.getElementById("msg");
+        const greetHead = document.getElementById("greet");
+        const signoutBtn = document.getElementById("signoutbutton");
+
+        if (userCreds && userInfo) {
+          msgHead.innerText = `${userCreds.email} logged in`;
+          greetHead.innerText = `Welcome ${userInfo.firstname} ${userInfo.lastname}!`;
+        } else {
+          window.location.href = "signin.html";
+        }
+
+        const signOut = () => {
+          sessionStorage.removeItem("user-creds");
+          sessionStorage.removeItem("user-info");
+          window.location.href = "login.html";
+        };
+
+        signoutBtn.addEventListener("click", signOut);
+      });
+    </script>
   </body>
 </html>
