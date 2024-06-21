@@ -1,3 +1,13 @@
+.navbar{
+    background-color:red;
+}
+.navbar-text, .navbar-brand, .nav-link,.nav-link,.button-text{
+    color:white;
+}
+.btn-color{
+    background-color:red;
+}
+
 .stadium-link {
     padding: 10px 20px;
     width:100px;
