@@ -8,39 +8,45 @@ const firebaseConfig = {
     messagingSenderId: "270376816966",
     appId: "1:270376816966:web:5f19b7006d516404181547"
 };
+  
 firebase.initializeApp(firebaseConfig);
-
-
 
 // Function to create a new post
 function createPost(university) {
     const postContent = document.getElementById('postContent').value;
-    const fileInput = document.getElementById('upload').files[0];
-    const postsRef = firebase.database().ref('posts/' + university);
-    
-    if (fileInput) {
-        const storageRef = firebase.storage().ref('uploads/' + fileInput.name);
-        storageRef.put(fileInput).then(() => {
-            storageRef.getDownloadURL().then((url) => {
-                postsRef.push({
-                    content: postContent,
-                    imageUrl: url,
-                    likes: 0,
-                    dislikes: 0,
-                    comments: []
+    const file = document.getElementById('upload').files[0];
+    const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+    if (postContent || file) {
+        const newPostRef = firebase.database().ref('posts/' + university).push();
+
+        if (file) {
+            const storageRef = firebase.storage().ref('postImages/' + newPostRef.key + '/' + file.name);
+            const uploadTask = storageRef.put(file);
+
+            uploadTask.on('state_changed', null, null, () => {
+                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                    newPostRef.set({
+                        content: postContent,
+                        imageUrl: downloadURL,
+                        firstname: userInfo.firstname,
+                        lastname: userInfo.lastname,
+                        likes: 0,
+                        dislikes: 0,
+                        comments: []
+                    });
                 });
-                displayPosts(university);
             });
-        });
-    } else {
-        postsRef.push({
-            content: postContent,
-            imageUrl: null,
-            likes: 0,
-            dislikes: 0,
-            comments: []
-        });
-        displayPosts(university);
+        } else {
+            newPostRef.set({
+                content: postContent,
+                firstname: userInfo.firstname,
+                lastname: userInfo.lastname,
+                likes: 0,
+                dislikes: 0,
+                comments: []
+            });
+        }
     }
 }
 
@@ -54,13 +60,13 @@ function displayPosts(university) {
             const post = childSnapshot.val();
             const postElement = document.createElement('div');
             postElement.classList.add('post');
-            postElement.dataset.postId = post.id;
+            postElement.dataset.postId = childSnapshot.key;
 
             postElement.innerHTML = `
-                <p>${post.content}</p>
+                <p><strong>${post.firstname} ${post.lastname}</strong>: ${post.content}</p>
                 ${post.imageUrl ? `<img src="${post.imageUrl}" alt="Post image">` : ''}
             `;
-            addPostActions(postElement, post.id, post.likes, post.dislikes);
+            addPostActions(postElement, childSnapshot.key, post.likes, post.dislikes, university);
 
             const comments = document.createElement('div');
             comments.className = 'comments';
@@ -69,7 +75,7 @@ function displayPosts(university) {
             if (post.comments) {
                 for (const commentId in post.comments) {
                     const comment = post.comments[commentId];
-                    const commentElement = createCommentElement(comment, post.id, commentId);
+                    const commentElement = createCommentElement(comment, childSnapshot.key, commentId, university);
                     comments.appendChild(commentElement);
                 }
             }
@@ -80,36 +86,32 @@ function displayPosts(university) {
 }
 
 // Function to add post actions (like, dislike, delete, comment)
-function addPostActions(post, postId, initialLikes = 0, initialDislikes = 0) {
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-
+function addPostActions(postElement, postId, likes, dislikes, university) {
     const likeButton = document.createElement('button');
     likeButton.className = 'action-button';
-    likeButton.innerHTML = `<i class="fas fa-thumbs-up"></i> Like <span class="like-count">${initialLikes}</span>`;
+    likeButton.innerHTML = `Like <span class="like-count">${likes}</span>`;
     likeButton.onclick = function() {
-        handleLikeDislike(this, postId, true);
+        handleLikeDislike(likeButton, postId, true, university);
     };
-    actions.appendChild(likeButton);
 
     const dislikeButton = document.createElement('button');
     dislikeButton.className = 'action-button';
-    dislikeButton.innerHTML = `<i class="fas fa-thumbs-down"></i> Dislike <span class="dislike-count">${initialDislikes}</span>`;
+    dislikeButton.innerHTML = `Dislike <span class="dislike-count">${dislikes}</span>`;
     dislikeButton.onclick = function() {
-        handleLikeDislike(this, postId, false);
+        handleLikeDislike(dislikeButton, postId, false, university);
     };
-    actions.appendChild(dislikeButton);
+
+    postElement.appendChild(likeButton);
+    postElement.appendChild(dislikeButton);
 
     const deleteButton = document.createElement('button');
     deleteButton.className = 'action-button';
     deleteButton.innerHTML = '<i class="fas fa-trash"></i> Delete';
     deleteButton.onclick = function() {
-        deletePostFromDatabase(postId);
-        post.remove();
+        deletePostFromDatabase(postId, university);
+        postElement.remove();
     };
-    actions.appendChild(deleteButton);
-
-    post.appendChild(actions);
+    postElement.appendChild(deleteButton);
 
     const commentInput = document.createElement('div');
     commentInput.className = 'comment-input';
@@ -119,21 +121,21 @@ function addPostActions(post, postId, initialLikes = 0, initialDislikes = 0) {
     const button = document.createElement('button');
     button.textContent = 'Post';
     button.onclick = function() {
-        addComment(input, post.querySelector('.comments'), postId);
+        addComment(input, postElement.querySelector('.comments'), postId, university);
     };
     commentInput.appendChild(input);
     commentInput.appendChild(button);
-    post.appendChild(commentInput);
+    postElement.appendChild(commentInput);
 }
 
 // Function to handle like and dislike actions
-function handleLikeDislike(button, postId, isLike) {
+function handleLikeDislike(button, postId, isLike, university) {
     const countSpan = button.querySelector(isLike ? '.like-count' : '.dislike-count');
     const otherButton = button.nextSibling || button.previousSibling;
     const otherCountSpan = otherButton.querySelector(isLike ? '.dislike-count' : '.like-count');
     const count = parseInt(countSpan.textContent);
     const otherCount = parseInt(otherCountSpan.textContent);
-    
+
     if (button.classList.toggle(isLike ? 'liked' : 'disliked')) {
         countSpan.textContent = count + 1;
         if (otherButton.classList.contains(isLike ? 'disliked' : 'liked')) {
@@ -144,33 +146,41 @@ function handleLikeDislike(button, postId, isLike) {
         countSpan.textContent = count - 1;
     }
 
-    firebase.database().ref('posts/' + postId).update({
+    const updates = {
         [isLike ? 'likes' : 'dislikes']: parseInt(countSpan.textContent)
-    });
+    };
+    if (otherButton.classList.contains(isLike ? 'disliked' : 'liked')) {
+        updates[isLike ? 'dislikes' : 'likes'] = parseInt(otherCountSpan.textContent);
+    }
+
+    firebase.database().ref('posts/' + university + '/' + postId).update(updates);
 }
 
 // Function to add a comment
-function addComment(input, comments, postId) {
+function addComment(input, comments, postId, university) {
     if (input.value) {
+        const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
         const comment = {
             text: input.value,
+            firstname: userInfo.firstname,
+            lastname: userInfo.lastname,
             replies: []
         };
 
-        const commentRef = firebase.database().ref('posts/' + postId + '/comments').push();
+        const commentRef = firebase.database().ref('posts/' + university + '/' + postId + '/comments').push();
         commentRef.set(comment);
 
-        const commentElement = createCommentElement(comment, postId, commentRef.key);
+        const commentElement = createCommentElement(comment, postId, commentRef.key, university);
         comments.appendChild(commentElement);
         input.value = '';
     }
 }
 
 // Function to create a comment element
-function createCommentElement(comment, postId, commentId) {
+function createCommentElement(comment, postId, commentId, university) {
     const commentElement = document.createElement('div');
     commentElement.className = 'comment';
-    commentElement.innerHTML = comment.text;
+    commentElement.innerHTML = `<strong>${comment.firstname} ${comment.lastname}</strong>: ${comment.text}`;
 
     const replyButton = document.createElement('button');
     replyButton.className = 'action-button';
@@ -183,7 +193,7 @@ function createCommentElement(comment, postId, commentId) {
         const postReplyButton = document.createElement('button');
         postReplyButton.textContent = 'Post';
         postReplyButton.onclick = function() {
-            addReply(replyInput, commentElement, postId, commentId);
+            addReply(replyInput, commentElement, postId, commentId, university);
         };
 
         commentElement.appendChild(replyInput);
@@ -195,55 +205,56 @@ function createCommentElement(comment, postId, commentId) {
     deleteButton.className = 'action-button';
     deleteButton.innerHTML = '<i class="fas fa-trash"></i> Delete';
     deleteButton.onclick = function() {
-        deleteCommentFromDatabase(postId, commentId);
+        deleteCommentFromDatabase(postId, commentId, university);
         commentElement.remove();
     };
     commentElement.appendChild(deleteButton);
 
-    if (comment.replies && comment.replies.length > 0) {
-        comment.replies.forEach(reply => {
+    if (comment.replies) {
+        for (const replyId in comment.replies) {
+            const reply = comment.replies[replyId];
             const replyElement = document.createElement('div');
             replyElement.className = 'reply';
-            replyElement.textContent = reply.text;
+            replyElement.textContent = `${reply.firstname} ${reply.lastname}: ${reply.text}`;
             commentElement.appendChild(replyElement);
-        });
+        }
     }
 
     return commentElement;
 }
 
 // Function to add a reply
-function addReply(replyInput, commentElement, postId, commentId) {
+function addReply(replyInput, commentElement, postId, commentId, university) {
     if (replyInput.value) {
+        const userInfo = JSON.parse(sessionStorage.getItem("user-info"));
         const reply = {
-            text: replyInput.value
+            text: replyInput.value,
+            firstname: userInfo.firstname,
+            lastname: userInfo.lastname
         };
 
-        const replyRef = firebase.database().ref('posts/' + postId + '/comments/' + commentId + '/replies').push();
+        const replyRef = firebase.database().ref('posts/' + university + '/' + postId + '/comments/' + commentId + '/replies').push();
         replyRef.set(reply);
 
         const replyElement = document.createElement('div');
         replyElement.className = 'reply';
-        replyElement.textContent = replyInput.value;
-
+        replyElement.textContent = `${reply.firstname} ${reply.lastname}: ${reply.text}`;
         commentElement.appendChild(replyElement);
         replyInput.remove();
-        replyInput.nextSibling.remove();
     }
 }
 
 // Function to delete a post from the database
-function deletePostFromDatabase(postId) {
-    firebase.database().ref('posts/' + postId).remove();
+function deletePostFromDatabase(postId, university) {
+    firebase.database().ref('posts/' + university + '/' + postId).remove();
 }
 
 // Function to delete a comment from the database
-function deleteCommentFromDatabase(postId, commentId) {
-    firebase.database().ref('posts/' + postId + '/comments/' + commentId).remove();
+function deleteCommentFromDatabase(postId, commentId, university) {
+    firebase.database().ref('posts/' + university + '/' + postId + '/comments/' + commentId).remove();
 }
 
-// Initialize the page
+// Function to initialize post display on page load
 window.onload = function() {
-    const university = document.title.toLowerCase();
-    displayPosts(university);
+    displayPosts('sunway');
 };
