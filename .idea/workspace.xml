@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="755eb4b4-cafb-42ee-ac1f-1e072e686203" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/CSS/landing-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/landing-page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTML/Landing-page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTML/rating's-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/HTML/rating's-page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTML/students.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/database firebase/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Test/database firebase/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/database firebase/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Test/database firebase/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/database firebase/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/Test/database firebase/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/website/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/website/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/website/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/website/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/website/templates/Landing-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/backend/website/templates/Landing-page.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2hmyTZuFE3jta0NKJlHLHoX13mO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "weilee"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="755eb4b4-cafb-42ee-ac1f-1e072e686203" name="Changes" comment="" />
+      <created>1718213556901</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718213556901</updated>
+    </task>
+    <servers />
+  </component>
+</project>

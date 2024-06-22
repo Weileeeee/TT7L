@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+    </head>
+    <body>
+      <!-- linking to css -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='CSS/landing-page.css') }}">
+      <link rel ='stylesheet' href ="static/CSS/landing-page.css">   
+   
+      <title>{% block title%}{% endblock %}</title>
+      <!--nav bar-->
+          <div>
+            <ul class = "nav">
+                <li id="logo">UNIrate</li>
+                <li><a href ="/">HOME</a></li>
+                <li>
+                    <a href ="">Ranking'↓ </a>
+                    <ul class =  "dropdown">
+                        <li><a href ="">MMU</a></li>
+                        <li><a href ="">SUNWAY</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href ="">Discover ↓</a>
+                    <ul class = "dropdown">
+                        <li><a href ="">Accounting</a></li>
+                        <li><a href = "">Computer Science</a></li>
+                    </ul>
+                </li>
+
+                  <li><a href ="">SUPPORT</a></li>
+                    <li><a href ="/login" class = "user">login</a></li>
+                    <li><a href = "/Signup" class = "user">Signup</a></li>
+            </div>
+            </nav>
+            <!--message flashing-->
+            {% with messages = get_flashed_messages(with_categories=true)%}
+            {% if messages %}
+              {% for category, message in messages %}
+              {% if category == 'error' %}
+              <!--display error message box-->
+              <div class="alert alert danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dimiss="'alert"></button>
+                  <span aria-hidden ="true">&times;</span>
+            </div>
+            {% else %}
+            <div class="alert alert-succes alter-dismissable fade show" role="alert"></div>
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert"></button>
+                  <span aria-hidden ="true">&times;</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {%endif%}
+            {% endwith %}
+            <div class = "container" >
+              {% block content%}{% endblock %}
+            </div>
+        </div>
+        <div class = "credits">
+            <h2>Find Out about us more</h2>
+            <a href = "" ><img src = "C:\Users\admin\Documents\project\facebook icon.png"target= "_blank" ></a>
+            <a href = ""><img src ="" target="_blank"></a>
+          <!--script for bootstrap-->
+        </div>
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+      ></script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+      ></script>
+
+      <!-- <script>
+        type="css"
+        src ="{{url_for('static', filename ='CSS/landing-page.css')}}"
+      </script> -->
+
+    </body>
+</html> ........

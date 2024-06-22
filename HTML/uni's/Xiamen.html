@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xiamen</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- <link href="pc.css" rel="stylesheet"> -->
+    <link href="../../CSS/Xiamen.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Unirate</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="../landing_page.html">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                UNis
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../uni's/sunway.html">Sunway</a></li>
+                <li><a class="dropdown-item" href="MMU.html">MMU</a></li>
+                <li><a class="dropdown-item" href="Monash.html">Monash</a></li>
+                <li><a class="dropdown-item" href="utar.html">utar</a></li>
+                <li><a class="dropdown-item" href="Xiamen.html">xiamen</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <div class="d-grid gap-2 d-md-block">
+            <a href="../signup.html"><button class="btn btn-light" type="button">Signup</button></a>
+            <a href="../signin.html"><button class="btn btn-link" type="button" id="signoutbutton">Signout</button></a>
+        </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <h1 id="background_pic">Xiamen University</h1>
+    <h1>About Xiamen</h1>
+    <p>
+      Xiamen University Malaysia (XMUM) is the first overseas campus set up by a renowned Chinese university and the first Chinese university branch campus in Malaysia. Located in the vicinity of Bandar Kota Warisan, Sepang, Selangor, it's just 15 minutes ride from the country's administrative center of Putrajaya or 45 km southwest of Kuala Lumpur. It is built on an area of 150 acres with a planned total floor space of 470,000 square meters. XMUM aspires to become a university with a distinct global outlook, which features first-class teaching and research, and embraces cultural diversity. With the exception of Chinese Studies and Traditional Chinese Medicine, the medium of instruction for all other programmes is English.
+    </p>
+
+    <h2>Available programs</h2>
+      <ul>
+        <li><a class="dropdown-item" href="https://www.xmu.edu.my/2023/1031/c16268a480414/page.htm">Bachelor of Medicine in Traditional Chinese Medicine</a></li>
+        <li><a class="dropdown-item" href="https://www.xmu.edu.my/2023/1031/c16268a480417/page.htm">Bachelor of Science in Marine Biotechnology</a></li>
+        <li>
+          <a class="dropdown-item" href="https://www.xmu.edu.my/2024/0111/c16268a482946/page.htm"
+            >Bachelor of Arts in Journalism (Honours)</a
+          >
+        </li>
+        <li><a class="dropdown-item" href="https://www.xmu.edu.my/2023/0824/c16268a476921/page.htm">Bachelor of Chemical Engineering with Honours</a></li>
+        <li><a class="dropdown-item" href="https://www.xmu.edu.my/2023/0824/c16268a476922/page.htm">Bachelor of Management in Accounting</a></li>
+        <li><a class="dropdown-item" href="https://www.xmu.edu.my/2023/0824/c16268a476917/page.htm">Bachelor of Management in International Business</a></li>
+        
+      </ul>
+    </div>
+    
+    <h2>University information</h2>
+    <h2>Rankings</h2>
+    <ul>
+      <li>QS World University Rankings: #362</li>
+      <li>Asia University Rankings: #49</li>
+    </ul>
+    <div class="info-section">
+      <h2>Fees</h2>
+      <p>Undergraduate tuition fees: $10,000 - $15,000 per year</p>
+      <p>Postgraduate tuition fees: $15,000 - $20,000 per year</p>
+    </div>
+
+    <!-- Comment Box Section -->
+    <div class="post-container">
+      <div id="posts"></div>
+      <div class="upload-section">
+        <input type="file" id="upload" accept="image/*" />
+        <textarea id="postContent"></textarea>
+        <button onclick="createPost('xiamen')">Post</button>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="pc.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        displayPosts("xiamen");
+      });
+    </script>
+   
+    
+  </body>
+</html>

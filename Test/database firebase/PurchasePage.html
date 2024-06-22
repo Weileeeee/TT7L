@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Car Sale Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header section starts -->
+    <header class="header">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <a href="#" class="logo"> <span>max</span>wheels</a>
+        <nav class="navbar">
+            <a href="home">home</a>
+            <a href="#vehicles">vehicles</a>
+            <a href="#services">services</a>
+            <a href="#featured">featured</a>
+            <a href="#reviews">reviews</a>
+            <a href="#contact">contact</a>
+        </nav>
+        <div id="login-btn">
+            <button class="btn">login</button>
+            <i class="far fa-user"></i>
+        </div>
+    </header>
+
+    <!-- Login form -->
+    <div class="login-form-container">
+        <span class="fas fa-times" id="close-login-form"></span>
+        <form id="loginForm">
+            <h3>user login</h3>
+            <input id="email" type="email" placeholder="email" class="box" required>
+            <input id="password" type="password" placeholder="password" class="box" required>
+            <p>forget your password<a href="#">click here</a></p>
+            <button type="submit" class="btn">login now</button>
+            <p>or login with</p>
+            <div class="buttons">
+                <a href="#" class="btn">google</a>
+                <a href="#" class="btn">facebook</a>
+            </div>
+            <p>don't have an account <button id="registerButton" class="btn">create one</button></p>
+        </form>
+    </div>
+
+    <section class="home" id="home">
+
+        <h1 class="home-parallax" data-speed="-2">find your car</h1>
+        <img class="home-parallax" data-speed="5" src="C:\Users\USER\Downloads\homepagePic.jpg" alt="">
+        <a href="#" class="btn home-parallax" data-speed="7"> explore cars </a>
+
+    </section>
+
+<section class="icons-container">
+
+    <div class="icons">
+        <i class="fas fa-home"></i>
+        <div class="content">
+            <h3>150+</h3>
+            <p>branches</p>
+        </div>
+    </div>
+
+    <div class="icons">
+        <i class="fas fa-car"></i>
+        <div class="content">
+            <h3>4770+</h3>
+            <p>cars sold</p>
+        </div>
+    </div>
+
+    <div class="icons">
+        <i class="fas fa-users"></i>
+        <div class="content">
+            <h3>590+</h3>
+            <p>happy clients</p>
+        </div>
+    </div>
+
+    <div class="icons">
+        <i class="fas fa-car"></i>
+        <div class="content">
+            <h3>890+</h3>
+            <p>new cars</p>
+        </div>
+    </div>
+
+</section>
+
+<section class="vehicles" id="vehicles">
+
+    <h1 class="heading"> popular <span>vehicles</span></h1>
+
+    <div class="vehicles-slide">
+        <div class="wrapper">
+            <div class="box">
+                <img src="C:\Users\USER\Downloads\car.png" alt="">
+                <div class="content">
+                    <h3>new modal</h3>
+                    <div class="price"> <span>price: </span> $65000/- </div>
+                    <p>
+                        new
+                        <span class="fas fa-circle"></span> 2021
+                        <span class="fas fa-circle"></span> automatic
+                        <span class="fas fa-circle"></span> petrol
+                        <span class="fas fa-circle"></span> 183mph
+                    </p>
+                    <a href="#" class="btn">check out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="vehicles" id="vehicles">
+
+    <h1 class="heading"> popular <span>vehicles</span></h1>
+
+    <div class="vehicles-slide">
+        <div class="wrapper">
+            <div class="box">
+                <img src="image\car.png" alt="">
+                <div class="content">
+                    <h3>new modal</h3>
+                    <div class="price"> <span>price: </span> $65000/- </div>
+                    <p>
+                        new
+                        <span class="fas fa-circle"></span> 2021
+                        <span class="fas fa-circle"></span> automatic
+                        <span class="fas fa-circle"></span> petrol
+                        <span class="fas fa-circle"></span> 183mph
+                    </p>
+                    <a href="#" class="btn">check out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+    <!-- Additional sections omitted for brevity -->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, set, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC7FWt5lhKF3Omc4deXzUxGUYxUkz_XSG4",
+            authDomain: "car-review-website.firebaseapp.com",
+            databaseURL: "https://car-review-website-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "car-review-website",
+            storageBucket: "car-review-website.appspot.com",
+            messagingSenderId: "320459252993",
+            appId: "1:320459252993:web:49670ccd2505873cdae700"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+
+            loginForm.addEventListener('submit', (evt) => {
+                evt.preventDefault();
+                login();
+            });
+
+            document.getElementById('registerButton').addEventListener('click', (evt) => {
+                evt.preventDefault();
+                register();
+            });
+        });
+
+        function login() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            if (!validate_email(email) || !validate_password(password)) {
+                alert('Email or Password is Incorrect!!');
+                return;
+            }
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    let user = userCredential.user;
+                    let userRef = ref(db, 'users/' + user.uid);
+
+                    update(userRef, { last_login: Date.now() })
+                        .then(() => {
+                            alert('User Logged In!!');
+                        });
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+
+        function validate_email(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function validate_password(password) {
+            return password.length >= 6; // or any other password validation logic
+        }
+
+        function register() {
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    let user = userCredential.user;
+                    let userRef = ref(db, 'users/' + user.uid);
+
+                    set(userRef, {
+                        email: email,
+                        last_login: Date.now()
+                    }).then(() => {
+                        alert('Account successfully created!');
+                    });
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        }
+    </script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

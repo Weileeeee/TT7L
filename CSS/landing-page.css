@@ -1,0 +1,24 @@
+.navbar{
+    background-color:red;
+}
+.navbar-text, .navbar-brand, .nav-link,.nav-link,.button-text{
+    color:white;
+}
+.btn-color{
+    background-color:red;
+}
+.background-image{
+    background-image:url('students.jpeg') ;
+    background-size: cover;
+    background-position: center;
+    position:relative;
+    height:700px;
+    width:100%;
+    opacity:20;
+}
+.background-image h1{
+    text-align: center;
+    color:white;
+    padding-top:250px;
+    position:aboslute;
+}

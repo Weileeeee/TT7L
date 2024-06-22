@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.comment-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+    height: 100px;
+}
+
+button {
+    padding: 10px;
+    background: #28a745;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background: #218838;
+}
+
+#comments-container {
+    margin-top: 20px;
+}
+
+.comment {
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.comment-buttons {
+    margin-top: 10px;
+}
+
+.comment-buttons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.comment-buttons button.like {
+    background: #007bff;
+    color: #fff;
+}
+
+.comment-buttons button.like:hover {
+    background: #0972e1;
+}
+
+.comment-buttons button.dislike {
+    background: #dc3545;
+    color: #fff;
+}
+
+.comment-buttons button.dislike:hover {
+    background: #c82333;
+}
+
+.like-count, .dislike-count {
+    margin-left: 5px;
+}
+.comment-buttons .delete {
+    background: #ff0000;
+    color: #fff;
+}
+
+.comment-buttons .delete:hover {
+    background: #cc0000;
+}
+.comment-buttons .like, .comment-buttons .dislike, .comment-buttons .delete {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+.comment-buttons .like:hover, .comment-buttons .dislike:hover, .comment-buttons .delete:hover {
+    color: #0056b3;
+}
+
+.comment-buttons .like .fa-thumbs-up, .comment-buttons .dislike .fa-thumbs-down, .comment-buttons .delete .fa-trash {
+    margin-right: 5px;
+}
